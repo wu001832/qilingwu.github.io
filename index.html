@@ -1,10 +1,481 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Qiling Wu</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Qiling Wu</title>
+  <style>
+    :root {
+      --maroon: #7a0019;
+      --gold: #ffcc33;
+      --text: #1f2937;
+      --muted: #6b7280;
+      --bg: #f8fafc;
+      --card: #ffffff;
+      --border: #e5e7eb;
+      --shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+      --max-width: 1050px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      color: var(--text);
+      background: var(--bg);
+      line-height: 1.7;
+    }
+
+    a {
+      color: var(--maroon);
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    .container {
+      width: min(var(--max-width), 92%);
+      margin: 0 auto;
+    }
+
+    header {
+      background: linear-gradient(135deg, #7a0019 0%, #5c0013 100%);
+      color: white;
+      padding: 22px 0;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+    }
+
+    .nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .brand {
+      font-size: 1.4rem;
+      font-weight: 700;
+      letter-spacing: 0.3px;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 18px;
+      flex-wrap: wrap;
+      font-size: 0.98rem;
+    }
+
+    .nav-links a {
+      color: white;
+      opacity: 0.95;
+    }
+
+    .hero {
+      padding: 80px 0 56px;
+      background:
+        radial-gradient(circle at top right, rgba(255, 204, 51, 0.18), transparent 25%),
+        linear-gradient(to bottom, #fff, #f8fafc);
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.35fr 0.9fr;
+      gap: 32px;
+      align-items: center;
+    }
+
+    .hero h1 {
+      font-size: clamp(2.3rem, 5vw, 4rem);
+      line-height: 1.08;
+      margin: 0 0 14px;
+      color: var(--maroon);
+    }
+
+    .hero .subtitle {
+      font-size: 1.18rem;
+      color: var(--muted);
+      margin-bottom: 22px;
+      max-width: 700px;
+    }
+
+    .hero p {
+      margin: 0 0 18px;
+      font-size: 1.03rem;
+    }
+
+    .button-row {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+      margin-top: 24px;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 12px 18px;
+      border-radius: 999px;
+      font-weight: 600;
+      transition: 0.2s ease;
+      border: 1px solid transparent;
+    }
+
+    .btn-primary {
+      background: var(--maroon);
+      color: white;
+    }
+
+    .btn-primary:hover {
+      background: #5e0014;
+      text-decoration: none;
+      transform: translateY(-1px);
+    }
+
+    .btn-secondary {
+      background: white;
+      color: var(--maroon);
+      border-color: var(--border);
+    }
+
+    .btn-secondary:hover {
+      text-decoration: none;
+      transform: translateY(-1px);
+      box-shadow: var(--shadow);
+    }
+
+    .profile-card {
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 22px;
+      padding: 28px;
+      box-shadow: var(--shadow);
+    }
+
+    .profile-photo {
+      width: 100%;
+      max-width: 240px;
+      aspect-ratio: 1 / 1;
+      border-radius: 20px;
+      background: linear-gradient(135deg, #ede9fe, #fce7f3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--muted);
+      font-weight: 600;
+      margin-bottom: 18px;
+      overflow: hidden;
+    }
+
+    .profile-photo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .mini-list {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+      color: var(--muted);
+      font-size: 0.98rem;
+    }
+
+    .mini-list li {
+      margin-bottom: 8px;
+    }
+
+    main section {
+      padding: 28px 0 18px;
+    }
+
+    .section-title {
+      font-size: 1.7rem;
+      margin-bottom: 16px;
+      color: var(--maroon);
+    }
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 20px;
+    }
+
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 24px;
+      box-shadow: 0 4px 18px rgba(0,0,0,0.04);
+    }
+
+    .card h3 {
+      margin-top: 0;
+      margin-bottom: 12px;
+      font-size: 1.15rem;
+    }
+
+    .tag-row {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 14px;
+    }
+
+    .tag {
+      display: inline-block;
+      padding: 6px 12px;
+      border-radius: 999px;
+      background: #f3f4f6;
+      color: #374151;
+      font-size: 0.9rem;
+    }
+
+    .project {
+      margin-bottom: 18px;
+      padding-bottom: 18px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .project:last-child {
+      margin-bottom: 0;
+      padding-bottom: 0;
+      border-bottom: none;
+    }
+
+    .project-title {
+      font-weight: 700;
+      font-size: 1.06rem;
+      margin-bottom: 6px;
+    }
+
+    .contact-box {
+      background: linear-gradient(135deg, #ffffff, #fff8e7);
+      border: 1px solid var(--border);
+      border-radius: 22px;
+      padding: 28px;
+      box-shadow: 0 4px 18px rgba(0,0,0,0.04);
+    }
+
+    footer {
+      padding: 38px 0 48px;
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    @media (max-width: 820px) {
+      .hero-grid,
+      .cards {
+        grid-template-columns: 1fr;
+      }
+
+      .hero {
+        padding-top: 56px;
+      }
+
+      .profile-card {
+        order: -1;
+      }
+    }
+  </style>
 </head>
 <body>
-    <h1>Hi, I'm Qiling Wu</h1>
-    <p>PhD Student | Health Communication | Misinformation</p>
+  <header>
+    <div class="container nav">
+      <div class="brand">Qiling Wu</div>
+      <nav class="nav-links">
+        <a href="#about">About</a>
+        <a href="#research">Research</a>
+        <a href="#projects">Projects</a>
+        <a href="#cv">CV</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="container hero-grid">
+      <div>
+        <h1>Qiling Wu</h1>
+        <div class="subtitle">
+          PhD Student in Mass Communication | Health Communication, Misinformation, and AI
+        </div>
+        <p>
+          I am a PhD student at the University of Minnesota. My research focuses on
+          misinformation correction, health communication. I am especially interested in how communication strategies and digital
+          environments shape belief updating, information sharing, and correction.
+        </p>
+        <div class="button-row">
+          <a class="btn btn-primary" href="#contact">Get in touch</a>
+          <a class="btn btn-secondary" href="#cv">View CV</a>
+        </div>
+      </div>
+
+      <div class="profile-card">
+        <div class="profile-photo">
+          <!-- 如果你之后想放照片，把下面这行取消注释，并把 photo.jpg 上传到仓库 -->
+          <!-- <img src="photo.jpg" alt="Qiling Wu"> -->
+          Photo
+        </div>
+        <ul class="mini-list">
+          <li><strong>Affiliation:</strong> University of Minnesota</li>
+          <li><strong>Program:</strong> PhD in Mass Communication</li>
+          <li><strong>Research Areas:</strong> Health Communication, Misinformation, AI</li>
+          <li><strong>Email:</strong> <a href="mailto:wu001832@umn.edu">wu001832@umn.edu</a></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <main class="container">
+    <section id="about">
+      <h2 class="section-title">About</h2>
+      <div class="card">
+        <p>
+          My work examines how people respond to misinformation and correction in health and
+          political contexts. I am interested in message design, social norms, source effects,
+          and the role of platform affordances in shaping engagement with corrective information.
+          I also work on projects involving AI-assisted correction and interactive communication
+          environments.
+        </p>
+        <p>
+          This site will include updates on my research, ongoing projects, conference
+          presentations, and selected materials.
+        </p>
+      </div>
+    </section>
+
+    <section id="research">
+      <h2 class="section-title">Research</h2>
+      <div class="cards">
+        <div class="card">
+          <h3>Misinformation Correction</h3>
+          <p>
+            I study when and why corrections work, including the effects of accuracy,
+            plausibility, source cues, and corrective framing on beliefs and behavioral
+            intentions.
+          </p>
+          <div class="tag-row">
+            <span class="tag">Corrections</span>
+            <span class="tag">Belief Updating</span>
+            <span class="tag">Sharing Intentions</span>
+          </div>
+        </div>
+
+        <div class="card">
+          <h3>Health Communication</h3>
+          <p>
+            I am interested in theory-based message design, help-seeking communication, and the
+            ways health misinformation circulates and is challenged across different audiences.
+          </p>
+          <div class="tag-row">
+            <span class="tag">Health Messages</span>
+            <span class="tag">Help-Seeking</span>
+            <span class="tag">Audience Response</span>
+          </div>
+        </div>
+
+        <div class="card">
+          <h3>Social Norms and Platforms</h3>
+          <p>
+            My work also considers how social endorsement, perceived norms, and platform design
+            features influence the spread of misinformation and the visibility of correction.
+          </p>
+          <div class="tag-row">
+            <span class="tag">Social Norms</span>
+            <span class="tag">Platforms</span>
+            <span class="tag">Affordances</span>
+          </div>
+        </div>
+
+        <div class="card">
+          <h3>AI and Interactive Interventions</h3>
+          <p>
+            I am developing research on AI-assisted correction, chatbot-based interventions, and
+            experimental designs that test how interactivity changes responses to corrective
+            content.
+          </p>
+          <div class="tag-row">
+            <span class="tag">AI Correction</span>
+            <span class="tag">Chatbots</span>
+            <span class="tag">Experiments</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="projects">
+      <h2 class="section-title">Selected Projects</h2>
+      <div class="card">
+        <div class="project">
+          <div class="project-title">AI Correction Chatbot</div>
+          <div>
+            A prototype chatbot designed for experimental research on misinformation correction,
+            interactivity, and message design.
+          </div>
+        </div>
+
+        <div class="project">
+          <div class="project-title">Correction, Accuracy, and Plausibility</div>
+          <div>
+            Research examining how plausibility and accuracy shape intentions to share or correct
+            misinformation.
+          </div>
+        </div>
+
+        <div class="project">
+          <div class="project-title">Platform-Based Correction Experiments</div>
+          <div>
+            Ongoing work testing how corrections operate in social-media-like environments,
+            including the effects of visibility, social endorsement, and interaction.
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="cv">
+      <h2 class="section-title">CV</h2>
+      <div class="card">
+        <p>
+          You can add your CV here once you upload a PDF to this repository.
+        </p>
+        <p>
+          For example, after uploading your file as <strong>Qiling_Wu_CV.pdf</strong>, change the
+          link below:
+        </p>
+        <p>
+          <a href="Qiling_Wu_CV.pdf" target="_blank">Download CV (PDF)</a>
+        </p>
+      </div>
+    </section>
+
+    <section id="contact">
+      <h2 class="section-title">Contact</h2>
+      <div class="contact-box">
+        <p><strong>Email:</strong> <a href="mailto:your-email@umn.edu">your-email@umn.edu</a></p>
+        <p><strong>GitHub:</strong> <a href="https://github.com/wu001832" target="_blank">github.com/wu001832</a></p>
+        <p><strong>Google Scholar:</strong> <a href="#" target="_blank">Add your Google Scholar link here</a></p>
+        <p><strong>LinkedIn:</strong> <a href="#" target="_blank">Add your LinkedIn link here</a></p>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      © 2026 Qiling Wu. Built with GitHub Pages.
+    </div>
+  </footer>
 </body>
 </html>
